@@ -1,4 +1,4 @@
-import { SUCCESS, FAILURE, ADD_TO_SHOPPING_CART, REMOVE_FROM_SHOPPING_CART } from '../actions/shoppingCart'
+import { SHOPPING_CART_SUCCESS, SHOPPING_CART_FAILURE, ADD_TO_SHOPPING_CART, REMOVE_FROM_SHOPPING_CART } from '../actions/shoppingCart'
 
 const initialState = {
   items: [],
@@ -8,14 +8,14 @@ const initialState = {
 
 export const shoppingCart = (state = initialState, action) => {
   switch (action.type) {
-    case SUCCESS:
+    case SHOPPING_CART_SUCCESS:
       return {
         ...state,
         isFetching: false,
         items: [...state.items, action.payload],
         error: null
       }
-    case FAILURE:
+    case SHOPPING_CART_FAILURE:
       return {
         ...state,
         isFetching: false,

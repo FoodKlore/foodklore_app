@@ -1,4 +1,4 @@
-import { ADD_TO_ORDERS, SUCCESS, CANCEL_ORDER } from '../actions/orders'
+import { ADD_TO_ORDERS, ORDERS_SUCCESS, CANCEL_ORDER } from '../actions/orders'
 
 const initialState = {
   orders: [],
@@ -11,13 +11,11 @@ export const orders = (state = initialState, action) => {
     case ADD_TO_ORDERS:
       return {
         ...state,
-        error: null,
         isFetching: true
       }
-    case SUCCESS:
+    case ORDERS_SUCCESS:
       return {
         ...state,
-        error: null,
         orders: [...state.orders, action.payload],
         isFetching: false
       }

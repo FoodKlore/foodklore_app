@@ -8,9 +8,9 @@ export default function ShoppingCart() {
   const { items } = useSelector(state => state.shoppingCart);
   const dispatch = useDispatch();
 
-  const total = items.reduce( (prev, item) => item.total * item.quantity + prev ,0).toFixed(2);
-
   if (items.length > 0) {
+
+    const total = items.reduce( (prev, item) => item.total * item.quantity + prev ,0).toFixed(2);
     return(
       <ShoppingCartContainer>
         <Text>

@@ -50,4 +50,6 @@ const OrderWrapper = styled.View`
 const OrderContainer = styled.View`
   display: flex;
   flex: 1;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
