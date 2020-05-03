@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { Text } from 'react-native'
+import { Text, Alert } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import { addQuantityToItem, clearShoppingCart } from '../store/actions/shoppingCart'
 import { addToOrders } from '../store/actions/orders'
 
 export default function ShoppingCart() {
@@ -20,13 +21,38 @@ export default function ShoppingCart() {
           {items.map((item, index) => {
             return (
               <ItemWrapper key={`item-wrapper-${index}`}>
-                <Text key={`item-description-${index}`}>
-                  {item.description}
-                </Text>
+                <DescriptionWrapper>
+                  <Text key={`item-name-${index}`}>
+                    {item.description}
+                  </Text>
+                  <Text key={`item-description-${index}`}>
+                    {item.description}
+                  </Text>
+                </DescriptionWrapper>
+                <ItemImage key={`item-image-${index}`} source={
+                  {
+                    uri: item.img
+                  }}
+                />
                 <Text key={`item-quantity-${index}`}>
                   {item.quantity}
                 </Text>
-                <Text key={`item-total-${index}`}>
+                <QuantityWrapper>
+                  <Plus onPress={ () => dispatch(addQuantityToItem(item, 1))}>
+                    <Text>
+                      ^
+                    </Text>
+                  </Plus>
+                  <Less>
+                  <Text onPress={ () => dispatch(addQuantityToItem(item, -1))}>
+                      ^
+                    </Text>
+                  </Less>
+                </QuantityWrapper>
+                <Text key={`item-total-${index}`} styled={{
+                  display: "flex",
+                  flex: 1
+                }}>
                   ${(item.total * item.quantity).toFixed(2)}
                 </Text>
               </ItemWrapper>
@@ -34,11 +60,17 @@ export default function ShoppingCart() {
           })}
         </ItemContainer>
         <Footer>
-          <TotalButtonComponent onPress={() => dispatch(addToOrders({
-            order_number: Math.round(Math.random() * 100),
-            total,
-            status: "Pending"
-          }))}>
+          <TotalButtonComponent onPress={() => {
+            dispatch(addToOrders({
+              order_number: Math.round(Math.random() * 100),
+              total,
+              status: "Pending"
+            }));
+            dispatch(clearShoppingCart());
+            Alert.alert(
+              "Thanks!! Your order has been processed"
+            );
+          }}>
             <Text style={{
               color: "white"
             }}>
@@ -59,8 +91,28 @@ export default function ShoppingCart() {
   }
 };
 
+const ItemImage = styled.Image`
+  width: 50px;
+  height: 50px;
+`
+
+const DescriptionWrapper = styled.View`
+  display: flex;
+`
+
+const Less = styled.TouchableOpacity`
+  display: flex;
+`
+
+const Plus = styled.TouchableOpacity`
+  display: flex;
+`
+
+const QuantityWrapper = styled.View`
+  display: flex;
+`
+
 const TotalButtonComponent = styled.TouchableHighlight`
-  background-color: red;
   padding: 5px;
   border-radius: 5px;
   width: 50%;
@@ -68,6 +120,7 @@ const TotalButtonComponent = styled.TouchableHighlight`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: red;
 `
 
 const Footer = styled.View`
@@ -89,8 +142,9 @@ const ItemWrapper = styled.View`
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-evenly;
-
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
 `
 
 const ShoppingCartContainer = styled.View`
