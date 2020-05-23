@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { addToShoppingCart } from '../store/actions/shoppingCart'
 
 function reducer(state, action) {
-  console.log(action);
   switch (action.type) {
     case 'increment':
       return {
@@ -63,7 +62,7 @@ export default function ItemDescription({ route }) {
         {item.ingredients.map((ingredient, index) => <Text key={index} style={{
           marginTop: 20,
           paddingLeft: 15,
-        }}> {ingredient} </Text>)}
+        }}> {ingredient.name} </Text>)}
       </ItemBody>
       <ItemFooter>
         <QuantityComponent quantity={state.quantity} dispatch={dispatch} />

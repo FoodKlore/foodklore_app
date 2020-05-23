@@ -5,8 +5,8 @@ import { View, Image, Text as T, TouchableOpacity } from 'react-native';
 export default function Restaurant({navigation, restaurant}) {
   return(
     <RestaurantContainer activeOpacity={0.8} onPress={() => navigation.navigate('Business Page', {
-        restaurant
-      })}>
+      restaurant_id: restaurant.id
+    })}>
       <RestaurantImage source={
         {
           uri: restaurant.img

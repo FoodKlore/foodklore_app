@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
-import { View, Button } from 'react-native'
 import MenuItem from '../components/MenuItem'
-import { addToShoppingCart } from '../store/actions/shoppingCart'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import { getMenu } from '../store/actions/menus'
 
-export default function BusinessPage({route, addToShoppingCart}) {
-  const { restaurant }= route.params;
+export default function BusinessPage({route}) {
+  const { restaurant_id }= route.params;
   const [ search, setSearch] = useState("");
+  const { menu } = useSelector( state => state.menus);
+  const dispatch = useDispatch();
 
-  let menu;
-  menu = search.length > 0 ? restaurant.menu.filter(item => item.description.toLowerCase().includes(search.toLowerCase())) : restaurant.menu ;
+  useEffect(() => {
+    dispatch(getMenu(restaurant_id))
+  }, []);
+
+  let menus_found;
+  menus_found = search.length > 0 ? menu.filter(item => item.description.toLowerCase().includes(search.toLowerCase())) : menu ;
   return (
     <MenuWrapper>
       <SearchBar placeholder={"Enter food name"}
@@ -19,7 +24,7 @@ export default function BusinessPage({route, addToShoppingCart}) {
         }}
       />
       <MenuItemContainer>
-        {menu.map(menu_item => (
+        {menus_found.map(menu_item => (
           <ItemContainer  key={`container-${menu_item.id}`}>
             <MenuItem key={`item-${menu_item.id}`} item={menu_item} />
           </ItemContainer>

@@ -4,16 +4,26 @@ import {
   TOUCH_SHOPPING_CART,
   EDIT_QUANTITY_TO_ITEM,
   CLEAR_SHOPPING_CART,
+  GET_SHOPPING_CART
 } from "../actions/shoppingCart";
 
 const initialState = {
   items: [],
   error: null,
   isFetching: false,
+  current_shoppingcart_id: null
 };
 
 export const shoppingCart = (state = initialState, action) => {
   switch (action.type) {
+    case GET_SHOPPING_CART:
+      return {
+        ...state,
+        isFetching: false,
+        items: action.payload.items,
+        current_shoppingcart_id: action.payload.current_shoppingcart_id,
+        error: null
+      }
     case SHOPPING_CART_SUCCESS:
       return {
         ...state,
@@ -36,13 +46,8 @@ export const shoppingCart = (state = initialState, action) => {
       const { item_id, quantity } = action.payload;
       const items = state.items.map((item) => {
         if (item.id === item_id) {
-          // TODO: found a better solution for this
-          // Because we don't have access to the original item price, found out what is it based of the current total and current quantity
-          const itemPrice = item.total / item.quantity;
           // Now, add quantity requested
           item.quantity += quantity;
-          // calculate total with new quantity
-          item.total = itemPrice * item.quantity;
           return item;
         }
         return item;

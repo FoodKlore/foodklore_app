@@ -1,11 +1,19 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import Restaurants from '../components/Restaurants';
+import { useDispatch } from 'react-redux';
+import { getShoppingCart } from '../store/actions/shoppingCart'
 
 export default function HomeScreen({navigation}) {
-  const [search, setSearch] = React.useState("");
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getShoppingCart())
+  }, [])
+
   return (
     <MainContainer>
       <SearchBar placeholder={"Enter restaurant name"}

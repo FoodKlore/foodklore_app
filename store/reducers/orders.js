@@ -1,4 +1,4 @@
-import { ADD_TO_ORDERS, ORDERS_SUCCESS, CANCEL_ORDER } from '../actions/orders'
+import { ADD_TO_ORDERS, ORDERS_SUCCESS, CANCEL_ORDER, CLEAR_ORDERS } from '../actions/orders'
 
 const initialState = {
   orders: [],
@@ -24,6 +24,13 @@ export const orders = (state = initialState, action) => {
         ...state,
         error: null,
         isFetching: true
+      }
+    case CLEAR_ORDERS:
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        orders: []
       }
     default:
       return state;

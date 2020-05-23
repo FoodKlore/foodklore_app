@@ -66,10 +66,10 @@ export default function ShoppingCart() {
               total,
               status: "Pending"
             }));
-            dispatch(clearShoppingCart());
             Alert.alert(
               "Thanks!! Your order has been processed"
             );
+            dispatch(clearShoppingCart());
           }}>
             <Text style={{
               color: "white"
