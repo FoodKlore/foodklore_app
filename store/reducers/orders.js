@@ -1,4 +1,4 @@
-import { ADD_TO_ORDERS, ORDERS_SUCCESS, CANCEL_ORDER, CLEAR_ORDERS } from '../actions/orders'
+import { TOUCH_ORDERS, SET_ORDERS, ORDERS_SUCCESS, CANCEL_ORDER, CLEAR_ORDERS } from '../actions/orders'
 
 const initialState = {
   orders: [],
@@ -8,10 +8,16 @@ const initialState = {
 
 export const orders = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_ORDERS:
+    case TOUCH_ORDERS:
       return {
         ...state,
         isFetching: true
+      }
+    case SET_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
+        isFetching: false
       }
     case ORDERS_SUCCESS:
       return {

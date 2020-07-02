@@ -2,7 +2,7 @@ import React, { useState, useReducer } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import QuantityComponent from '../components/Quantity'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToShoppingCart } from '../store/actions/shoppingCart'
 
 function reducer(state, action) {
@@ -35,6 +35,7 @@ export default function ItemDescription({ route }) {
     itemPrice: item.total
   }
 
+  const { current_shoppingcart_id } = useSelector(state => state.shoppingCart);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const shoppingCartDispatch = useDispatch();
@@ -66,7 +67,7 @@ export default function ItemDescription({ route }) {
       </ItemBody>
       <ItemFooter>
         <QuantityComponent quantity={state.quantity} dispatch={dispatch} />
-        <CartButtonText onPress={() => shoppingCartDispatch(addToShoppingCart(item, state.quantity))}>
+        <CartButtonText onPress={() => shoppingCartDispatch(addToShoppingCart(item, state.quantity, current_shoppingcart_id))}>
           <Text style={{
             color: "white"
           }}>

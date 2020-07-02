@@ -6,7 +6,7 @@ import { addQuantityToItem, clearShoppingCart } from '../store/actions/shoppingC
 import { addToOrders } from '../store/actions/orders'
 
 export default function ShoppingCart() {
-  const { items } = useSelector(state => state.shoppingCart);
+  const { items, current_shoppingcart_id } = useSelector(state => state.shoppingCart);
   const dispatch = useDispatch();
 
   if (items.length > 0) {
@@ -62,9 +62,12 @@ export default function ShoppingCart() {
         <Footer>
           <TotalButtonComponent onPress={() => {
             dispatch(addToOrders({
-              order_number: Math.round(Math.random() * 100),
-              total,
-              status: "Pending"
+              order: {
+                order_number: Math.round(Math.random() * 100),
+                total,
+                status: "Pending"
+              },
+              shoppingcart_id: current_shoppingcart_id
             }));
             Alert.alert(
               "Thanks!! Your order has been processed"

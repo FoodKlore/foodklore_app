@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
-import { connect, useSelector } from 'react-redux'
+import { connect, useSelector, useDispatch } from 'react-redux'
+import { getOrders } from '../store/actions/orders'
 
 export default function Orders() {
-  const items = useSelector(state => state.orders.orders);
+  const { orders } = useSelector(state => state.orders);
+  const dispatch = useDispatch();
 
-  if (items.length > 0) {
+  useEffect(() => {
+    dispatch(getOrders());
+  }, []);
+
+  console.log(orders);
+  if (orders.length > 0) {
     return(
       <OrderContainer>
-        {items.map((item, index) => (
+        {orders.map((order, index) => (
           <OrderWrapper key={index}>
             <Text>
-              Order # {item.order_number}
+              Order # {order.id}
             </Text>
             <Text>
-              ${item.total}
+              ${order.total}
             </Text>
             <Text>
-              {item.status}
+              {order.status}
             </Text>
           </OrderWrapper>
         ))}

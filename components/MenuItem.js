@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function MenuItem({ item }) {
   const navigation = useNavigation();
-  console.log(item);
   return(
     <MenuItemWrapper activeOpacity={0.8} onPress={() => navigation.navigate('Item Description', {
       item
