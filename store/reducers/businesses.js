@@ -16,7 +16,6 @@ export const businesses = (state = initialState, action) => {
         isFetching: true,
       }
     case BUSINESSES_SUCCESS:
-      console.log("Payload");
       return {
         ...state,
         businesses: action.payload,

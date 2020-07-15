@@ -25,17 +25,27 @@ export const getOrders = () => async dispatch => {
   }
 }
 
-export const addToOrders = ({order, shoppingcart_id}) => async dispatch => {
+export const addToOrders = (payload) => async dispatch => {
   dispatch({ type: TOUCH_ORDERS  });
 
-  try {
-    const { data } = await axios.post(`${BACKEND_API}/orders`, {
-      total: order.total,
-      shoppingcart_id
-    });
-    dispatch({ type: ORDERS_SUCCESS, payload: data });
-  } catch (error) {
+  // 1. Check if user is logged in, send total and shoppingcart_id info over the server to create payload
+  // 2. if user is not logged in, we will return false and show the accounts view. The payload will be stored in the phone storage
+  // 3. After the email is being sent, get the payload from storage and dispatch add to order again.
+  // 4. If user is logged in, send payload to the POST /orders endpoint and delete it from local storage afterwards.
 
+  try {
+    // const { data } = await axios.post(`${BACKEND_API}/orders`, {
+    //   total: total, // sent from email link as payload
+    //   shoppingcart_id // sent from email link as payload
+    // });
+    const { data } = await axios.post(`${BACKEND_API}/orders`, {
+      payload
+    });
+
+    dispatch({ type: ORDERS_SUCCESS, payload: data });
+    return true;
+  } catch (error) {
+    return false;
   }
 }
 

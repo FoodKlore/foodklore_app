@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/native'
 import { Text, Button, Linking } from 'react-native'
+import { useDispatch } from 'react-redux';
+import { addToOrders } from '../store/actions/orders';
 
-export default function OrderCreated({navigation, route}) {
+export default function CreateOrder({navigation, route}) {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const { payload } = route.params;
+    dispatch(addToOrders(payload));
+  }, []);
+
   return(
     <Wrapper>
       <Text>

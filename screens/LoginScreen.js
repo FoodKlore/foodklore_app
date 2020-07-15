@@ -1,21 +1,30 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import styled from "styled-components/native"
-import { View } from "react-native";
+import { View, Text } from "react-native";
+import { authenticate } from "../store/actions/auth";
 
 export default function LoginScreen({navigation}) {
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
 
     return (
         <Wrapper>
-            <Input placeholder="Enter your username" onChangeText={(text) => {
-                setName(text)
+            <Input value={email} placeholder="Email" onChangeText={(text) => {
+                setEmail(text)
             }} />
-            <Input placeholder="Enter password" onChangeText={(text) => {
+            <Input value={password} placeholder="Enter your password" onChangeText={(text) => {
                 setPassword(text)
             }} secureTextEntry />
-            <LoginButton title="Login"/>
+
+            <LoginButton title="Login" onPress={() => {
+                dispatch(authenticate({
+                    authenticable: email,
+                    password
+                }));
+            }}/>
 
             <ContinueAsGuest title="Continue as a Guest" onPress={() => {
                 navigation.navigate('Create Guest Account')

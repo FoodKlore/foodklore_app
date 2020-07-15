@@ -21,21 +21,19 @@ export default function CreateGuest({navigation}) {
             }} />
 
             <LoginButton onPress={() => {
-
-                navigation.navigate('Order Created Successfully', {
-                    email,
-                    name
-                });
-
                 if( email == '' && name == '') {
                     console.log("Bad request");
                     return
                 }
 
-                // dispatch(createGuest(name, email)).then(res => {
-                //     if(res) {
-                //     }
-                // })
+                dispatch(createGuest(name, email)).then(res => {
+                    if(res) {
+                        navigation.navigate('Account Created Successfully', {
+                            email,
+                            name
+                        });
+                    }
+                });
             }} title="Create guest account"/>
         </Wrapper>
     );

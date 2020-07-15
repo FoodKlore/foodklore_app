@@ -6,7 +6,7 @@ import ItemDescription from '../screens/ItemDescription'
 import BottomTabNavigator from '../navigation/BottomTabNavigator'
 import CreateGuest from '../screens/CreateGuest'
 import AccountSuccessfullyCreated from '../screens/AccountSuccessfullyCreated'
-import OrderCreated from '../screens/OrderCreated'
+import CreateOrder from '../screens/CreateOrder'
 
 const Stack = createStackNavigator();
 
@@ -39,8 +39,8 @@ export default function BusinessStack () {
       />
 
       <Stack.Screen
-        name="Order Created Successfully"
-        component={OrderCreated}
+        name="Create Order"
+        component={CreateOrder}
       />
     </Stack.Navigator>
   );
