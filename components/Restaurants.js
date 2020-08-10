@@ -4,8 +4,6 @@ import styled from 'styled-components/native';
 import Restaurant from './Restaurant';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBussinesses } from '../store/actions/businesses';
-import axios from 'axios';
-import { BACKEND_API } from 'react-native-dotenv'
 // business_name: "Restaurante Indú", // TODO: Fix search to handle this characters
 
 export default function Restaurants({searchFor, navigation}) {

@@ -26,8 +26,12 @@ export default function LoginScreen({navigation}) {
                 }));
             }}/>
 
-            <ContinueAsGuest title="Continue as a Guest" onPress={() => {
+            <CreateAccountButton title="Continue as a Guest" onPress={() => {
                 navigation.navigate('Create Guest Account')
+            }} />
+
+            <CreateAccountButton title="Create an account" onPress={() => {
+                navigation.navigate('Create user account')
             }} />
         </Wrapper>
     );
@@ -49,6 +53,6 @@ const LoginButton = styled.Button`
 
 `
 
-const ContinueAsGuest = styled.Button`
+const CreateAccountButton = styled.Button`
 
 `

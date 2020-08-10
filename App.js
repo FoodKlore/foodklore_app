@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { SplashScreen } from 'expo';
+import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
+import { SplashScreen, Linking } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
 import useLinking from './navigation/useLinking';
 import { RootNavigator } from './navigation/RootNavigator';
 
@@ -12,6 +11,9 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './store/reducers'
 import thunk from 'redux-thunk'
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
@@ -19,22 +21,48 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 
+const prefix = Linking.makeUrl('/');
+
+function FakeHome({navigation}) {
+  return(
+    <SafeAreaView>
+      <Text onPress={() => navigation.navigate("Details")}> This is a fake Home </Text>
+    </SafeAreaView>
+  )
+}
+
+function FakeDetailsScreen({navigation}) {
+  return(
+    <SafeAreaView>
+      <Text onPress={() => navigation.goBack()}> This is a fake Details </Text>
+    </SafeAreaView>
+  )
+}
+
+
+const Stack = createStackNavigator();
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const [initialNavigationState, setInitialNavigationState] = React.useState();
-  const containerRef = React.useRef();
-  const { getInitialState } = useLinking(containerRef);
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        Home: "/",
+        Details: {
+          path: "details/:token",
+        }
+      }
+    }
+  }
+
+  console.log("PREFIX", prefix);
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHide();
-
-        // Load our initial navigation state
-        setInitialNavigationState(await getInitialState());
-
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
@@ -59,8 +87,18 @@ export default function App(props) {
       <Provider store={store}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-            <RootNavigator/>
+          {/* <NavigationContainer
+            linking={linking}
+            fallback={<Text>Loading...</Text>}
+          >
+
+          </NavigationContainer> */}
+          <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+            {/* <RootNavigator/> */}
+            <Stack.Navigator initialRouteName="Home">
+              <Stack.Screen name="Home" component={FakeHome} />
+              <Stack.Screen name="Details" component={FakeDetailsScreen} />
+            </Stack.Navigator>
           </NavigationContainer>
         </View>
       </Provider>

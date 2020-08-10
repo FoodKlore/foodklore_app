@@ -6,13 +6,13 @@ export const CANCEL_ORDER = 'CANCEL_ORDER'
 export const CLEAR_ORDERS = 'CLEAR_ORDERS'
 
 import axios from 'axios'
-import { BACKEND_API } from 'react-native-dotenv'
+import { PROD_BACKEND_API } from 'react-native-dotenv'
 
 export const getOrders = () => async dispatch => {
   dispatch({ type: TOUCH_ORDERS  });
 
   try {
-    const { data } = await axios.get(`${BACKEND_API}/orders`);
+    const { data } = await axios.get(`${PROD_BACKEND_API}/orders`);
     const orders = data.reduce(function(orders_with_status, order) {
       return orders_with_status.concat({
         ...order,
@@ -34,11 +34,11 @@ export const addToOrders = (payload) => async dispatch => {
   // 4. If user is logged in, send payload to the POST /orders endpoint and delete it from local storage afterwards.
 
   try {
-    // const { data } = await axios.post(`${BACKEND_API}/orders`, {
+    // const { data } = await axios.post(`${PROD_BACKEND_API}/orders`, {
     //   total: total, // sent from email link as payload
     //   shoppingcart_id // sent from email link as payload
     // });
-    const { data } = await axios.post(`${BACKEND_API}/orders`, {
+    const { data } = await axios.post(`${PROD_BACKEND_API}/orders`, {
       payload
     });
 

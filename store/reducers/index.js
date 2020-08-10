@@ -5,6 +5,7 @@ import { businesses } from './businesses'
 import { menus } from './menus'
 import { guest } from './guest'
 import { auth } from './auth'
+import { user } from './user'
 
 export default combineReducers({
   orders,
@@ -12,5 +13,6 @@ export default combineReducers({
   businesses,
   menus,
   guest,
-  auth
+  auth,
+  user
 })
