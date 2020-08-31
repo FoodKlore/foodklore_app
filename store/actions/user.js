@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PROD_BACKEND_API } from '../../constants'
+import { BACKEND_API } from '../../constants'
 
 export const USER_CREATE_SUCCESS = "USER_CREATE_SUCCESS"
 export const USER_FETCH = "USER_FETCH"
@@ -11,7 +11,7 @@ export const createUser = (email, name, username, nickname, password) => dispatc
 
   const redirectUlr = "exp://192.168.1.176:19000/Account"; // to root
 
-  return axios.post(`${PROD_BACKEND_API}users`, {
+  return axios.post(`${BACKEND_API}users`, {
     "user": {
       email,
       name,

@@ -7,13 +7,13 @@ export const CLEAR_SHOPPING_CART = "CLEAR_SHOPPING_CART";
 export const GET_SHOPPING_CART = "GET_SHOPPING_CART";
 
 import axios from "axios";
-import { PROD_BACKEND_API } from "../../constants";
+import { BACKEND_API } from "../../constants";
 
 export const getShoppingCart = () => (dispatch) => {
   dispatch({ type: TOUCH_SHOPPING_CART });
 
   axios
-    .get(`${PROD_BACKEND_API}/shoppingcart`)
+    .get(`${BACKEND_API}/shoppingcart`)
     .then(({ data }) => {
       // Retrive all menus from the shoppingcart_items relationship
       if (data) {
@@ -52,7 +52,7 @@ export const addToShoppingCart = (
   dispatch({ type: TOUCH_SHOPPING_CART });
   if (current_shoppingcart_id) {
     axios
-      .post(`${PROD_BACKEND_API}/shoppingcart_items`, {
+      .post(`${BACKEND_API}/shoppingcart_items`, {
         menu_id: item.id,
         quantity,
         shoppingcart_id: current_shoppingcart_id,
@@ -80,7 +80,7 @@ export const addToShoppingCart = (
       // TODO: Save user's token on the phone
       // const user_token = await AsyncStorage.getItem('TASKS');
       const entity_token = "eyJhbGciOiJIUzI1NiJ9.eyJhdXRoX2VudGl0eV9pZCI6NTYsImVudGl0eSI6Ikd1ZXN0IiwiZXhwIjoxNTkzNTY2OTM3fQ.QXqSIH2CGMszk-0TIQWI2rgmMKdNI31S0MOR1v6bcpg";
-      let { data } = await axios.post(`${PROD_BACKEND_API}/shoppingcart`, {
+      let { data } = await axios.post(`${BACKEND_API}/shoppingcart`, {
         shoppingcart: {
           entity_token
         },
@@ -97,7 +97,7 @@ export const addToShoppingCart = (
       try {
         dispatch({ type: TOUCH_SHOPPING_CART });
 
-        let { data } = await axios.post(`${PROD_BACKEND_API}/shoppingcart_items`, {
+        let { data } = await axios.post(`${BACKEND_API}/shoppingcart_items`, {
           menu_id: item.id,
           quantity,
           shoppingcart_id: current_shoppingcart_id,
@@ -140,7 +140,7 @@ export const addQuantityToItem = (item, quantity) => (dispatch) => {
     if (item.shoppingcart_items_id) {
       axios
         .put(
-          `${PROD_BACKEND_API}/shoppingcart_items/${item.shoppingcart_items_id}`,
+          `${BACKEND_API}/shoppingcart_items/${item.shoppingcart_items_id}`,
           {
             quantity: item.quantity + quantity,
           }

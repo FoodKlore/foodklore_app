@@ -1,29 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { confirmGuestAccount } from '../store/actions/guest';
+import { authenticate } from '../store/actions/auth';
 
 export default function ConfirmAccount({ navigation, route }) {
 
-  const [confirmed, setConfirmed] = useState(false);
-
+  const { account_confirmed } = useSelector( state => state.guest);
+  const { entity, token } = route.params;
   useEffect(() => {
-    console.log('navigation', navigation);
+    if (entity == "guest") {
+      console.log("Dispatching confirm guest account");
+      let resolved_confirmation = dispatch(confirmGuestAccount(encodeURIComponent(token)));
 
-    console.log('route', route);
+      resolved_confirmation.then((data) => {
+        if (data) {
+          console.log(data);
+          dispatch(authenticate(data));
+        }
+      });
+    } else if (entity == "user") {
+      dispatch(ConfirmAccount(encodeURIComponent(token)));
+    } else {
+      console.log("Entity not supported, bad request.");
+    }
   }, []);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(confirmed) {
-      setTimeout(() => {
-        // dispatch(confirmAccount());
-      }, 3000);
-    }
-  }, [confirmed])
+    if(account_confirmed) {
 
-  if(confirmed) {
+    }
+  }, [account_confirmed])
+
+  if(account_confirmed) {
     return(
       <Wrapper>
         <Text> Your account has been confirmed, please hold while we process your order. </Text>

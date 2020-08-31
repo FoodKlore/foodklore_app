@@ -1,0 +1,66 @@
+{
+    "editor.wordWrap": "on",
+    "workbench.iconTheme": "material-icon-theme",
+    "git.confirmSync": false,
+    "files.autoSave": "off",
+    "window.zoomLevel": 1,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // "editor.fontFamily": "Inconsolata-g for Powerline",
+    "workbench.colorCustomizations": {
+        // "terminal.foreground" : "#00FD61",
+        // "terminal.background" : "#0000",
+    },
+    // "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontFamily": "'Fira Code'",
+    "terminal.integrated.cursorBlinking": true,
+    "editor.minimap.enabled": false,
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorBlinking": "expand",
+    "editor.cursorWidth": 3,
+    "workbench.colorTheme": "Sublime Monokai",
+    "liveServer.settings.donotVerifyTags": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    // Enable per-language
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "terminal.integrated.rendererType": "dom",
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "*.vue": "vue"
+    },
+    // "vetur.format.defaultFormatter.html": "js-beautify-html",
+    // "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue"
+    ],
+    // "vetur.validation.template": false,
+    // "vetur.validation.style": false,
+    // "vetur.validation.script": false,
+    "files.trimTrailingWhitespace": true,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "gitlens.advanced.messages": {
+        "suppressLineUncommittedWarning": true
+    },
+    "explorer.confirmDragAndDrop": false,
+    "gitlens.mode.active": "review",
+    "[ruby]": {
+        "editor.defaultFormatter": "misogi.ruby-rubocop"
+    },
+}

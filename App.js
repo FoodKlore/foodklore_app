@@ -42,13 +42,12 @@ const Stack = createStackNavigator();
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const linking = {
-    prefixes: ["fk_app://"],
+    prefixes: ["foodklore://app"],
     config: {
       screens: {
-        Home: "/",
-        Details: {
-          path: "details/:detail_id",
-          parse: Number
+        Home: "",
+        ConfirmAccount: {
+          path: "validate/:entity/:token",
         }
       }
     }
@@ -58,18 +57,8 @@ export default function App(props) {
     <Provider store={store}>
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        {/* <NavigationContainer
-            linking={linking}
-            fallback={<Text>Loading...</Text>}
-          >
-
-          </NavigationContainer> */}
         <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
-          {/* <RootNavigator/> */}
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={FakeHome} />
-            <Stack.Screen name="Details" component={FakeDetailsScreen} />
-          </Stack.Navigator>
+          <RootNavigator/>
         </NavigationContainer>
       </View>
     </Provider>

@@ -1,10 +1,13 @@
-import { GUEST_FETCH, GUEST_ERROR, GUEST_SUCCESS } from "../actions/guest";
+import {
+  GUEST_FETCH, GUEST_ERROR, GUEST_SUCCESS, GUEST_CONFIRM_ACCOUNT, GUEST_CONFIRMED_ACCOUNT_SUCCESS, GUEST_CONFIRMED_ACCOUNT_FAILURE
+} from "../actions/guest";
 
 const initialState = {
   id: null,
   error: null,
   isFetching: null,
-  authenticated: null
+  authenticated: null,
+  account_confirmed: false
 }
 
 export const guest = (state = initialState, action) => {
@@ -26,6 +29,30 @@ export const guest = (state = initialState, action) => {
         ...state,
         error: action.payload,
         isFetching: false
+      }
+    case GUEST_CONFIRM_ACCOUNT: {
+      return {
+        ...state,
+        error: null,
+        isFetching: true
+      }
+    }
+    case GUEST_CONFIRMED_ACCOUNT_SUCCESS: {
+      return {
+        ...state,
+        error: null,
+        isFetching: false,
+        account_confirmed: true
+      }
+    }
+    case GUEST_CONFIRMED_ACCOUNT_FAILURE:
+      {
+        return {
+          ...state,
+          error: action.payload.error,
+          isFetching: false,
+          account_confirmed: false
+        }
       }
     default:
       return state
