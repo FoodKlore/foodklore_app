@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
-import styled from "styled-components/native"
-import { View, Button } from "react-native";
-import { createGuest } from "../store/actions/guest"
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import styled from 'styled-components/native'
+import { View, Button } from 'react-native'
+import { createGuest } from '../store/actions/guest'
 
 export default function CreateGuest({navigation}) {
-    const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const dispatch = useDispatch();
+    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
+    const dispatch = useDispatch()
 
     return (
         <Wrapper>
@@ -21,7 +21,7 @@ export default function CreateGuest({navigation}) {
 
             <LoginButton onPress={() => {
                 if( email == '' && name == '') {
-                    console.log("Bad request");
+                    console.log('Bad request')
                     return
                 }
 
@@ -30,12 +30,12 @@ export default function CreateGuest({navigation}) {
                         navigation.navigate('Account Created Successfully', {
                             email,
                             name
-                        });
+                        })
                     }
-                });
+                })
             }} title="Create guest account"/>
         </Wrapper>
-    );
+    )
 }
 
 const Wrapper = styled.View`

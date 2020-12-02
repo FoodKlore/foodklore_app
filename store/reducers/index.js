@@ -8,11 +8,11 @@ import { auth } from './auth'
 import { user } from './user'
 
 export default combineReducers({
-  orders,
-  shoppingCart,
-  businesses,
-  menus,
-  guest,
-  auth,
-  user
+    orders,
+    shoppingCart,
+    businesses,
+    menus,
+    guest,
+    auth,
+    user
 })

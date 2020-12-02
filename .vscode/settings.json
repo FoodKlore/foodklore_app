@@ -3,7 +3,7 @@
     "workbench.iconTheme": "material-icon-theme",
     "git.confirmSync": false,
     "files.autoSave": "off",
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0,
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     // "editor.fontFamily": "Inconsolata-g for Powerline",
@@ -11,8 +11,8 @@
         // "terminal.foreground" : "#00FD61",
         // "terminal.background" : "#0000",
     },
-    // "editor.formatOnSave": true,
-    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontFamily": "'Fira Code'",
     "terminal.integrated.cursorBlinking": true,
@@ -24,10 +24,6 @@
     "liveServer.settings.donotVerifyTags": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
     // Enable per-language
-    "[javascript]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
     "[html]": {
@@ -48,13 +44,11 @@
         "javascriptreact",
         "vue"
     ],
+    "editor.insertSpaces": true,
     // "vetur.validation.template": false,
     // "vetur.validation.style": false,
     // "vetur.validation.script": false,
     "files.trimTrailingWhitespace": true,
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
     "gitlens.advanced.messages": {
         "suppressLineUncommittedWarning": true
     },

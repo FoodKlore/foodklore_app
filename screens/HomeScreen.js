@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import styled from 'styled-components/native';
-import Restaurants from '../components/Restaurants';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, TextInput } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
+import styled from 'styled-components/native'
+import Restaurants from '../components/Restaurants'
+import { useDispatch } from 'react-redux'
 import { getShoppingCart } from '../store/actions/shoppingCart'
 
-export default function HomeScreen({navigation}) {
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
+export default function HomeScreen({ navigation }) {
+    const [search, setSearch] = useState('')
+    const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getShoppingCart())
-  }, [])
+    useEffect(() => {
+        dispatch(getShoppingCart())
+    }, [])
 
-  return (
-    <MainContainer>
-      <SearchBar placeholder={"Enter restaurant name"}
-        onChangeText={(text) => {
-          setSearch(text);
-        }}
-      />
-      <ScrollContainer contentContainerStyle={styles.contentContainer}>
-        <Restaurants navigation={navigation} searchFor={search}/>
-      </ScrollContainer>
-    </MainContainer>
-  );
+    return (
+        <MainContainer>
+            <SearchBar placeholder={'Enter restaurant name'}
+                onChangeText={(text) => {
+                    setSearch(text)
+                }}
+            />
+            <ScrollContainer contentContainerStyle={styles.contentContainer}>
+                <Restaurants navigation={navigation} searchFor={search} />
+            </ScrollContainer>
+        </MainContainer>
+    )
 }
 
 const SearchBar = styled(TextInput)`
@@ -33,7 +33,7 @@ const SearchBar = styled(TextInput)`
   width: 100%;
   margin-bottom: 2%;
   font-size: 16px;
-`;
+`
 
 const MainContainer = styled(View)`
   display: flex;
@@ -49,11 +49,11 @@ const ScrollContainer = styled(ScrollView)`
 `
 
 HomeScreen.navigationOptions = {
-  header: null,
-};
+    header: null,
+}
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    paddingTop: 30,
-  }
-});
+    contentContainer: {
+        paddingTop: 30,
+    }
+})
