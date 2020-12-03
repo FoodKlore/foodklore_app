@@ -3,11 +3,13 @@ import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { confirmGuestAccount } from '../store/actions/guest'
+import { confirmUserAccount } from '../store/actions/user'
 import { authenticate } from '../store/actions/auth'
 
 export default function ConfirmAccount({ navigation, route }) {
 
-    const { account_confirmed } = useSelector(state => state.guest)
+    const guest_account_confirmed = useSelector(state => state.guest.account_confirmed)
+    const user_account_confirmed = useSelector(state => state.user.authenticated)
     const { entity, token } = route.params
     useEffect(() => {
         if (entity == 'guest') {
@@ -21,7 +23,7 @@ export default function ConfirmAccount({ navigation, route }) {
                 }
             })
         } else if (entity == 'user') {
-            dispatch(ConfirmAccount(token))
+            dispatch(confirmUserAccount(token))
         } else {
             console.log('Entity not supported, bad request.')
         }
@@ -29,7 +31,7 @@ export default function ConfirmAccount({ navigation, route }) {
 
     const dispatch = useDispatch()
 
-    if (account_confirmed) {
+    if (guest_account_confirmed || user_account_confirmed) {
         return (
             <Wrapper>
                 <Text> Your account has been confirmed, please hold while we process your order. </Text>

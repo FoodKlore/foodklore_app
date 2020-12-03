@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { useDispatch } from "react-redux"
-import styled from "styled-components/native"
-import { View, Text } from "react-native";
-import { authenticate } from "../store/actions/auth";
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import styled from 'styled-components/native'
+import { View, Text } from 'react-native'
+import { authenticate } from '../store/actions/auth'
 
 export default function LoginScreen({navigation}) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     return (
         <Wrapper>
@@ -23,7 +23,7 @@ export default function LoginScreen({navigation}) {
                 dispatch(authenticate({
                     authenticable: email,
                     password
-                }));
+                }))
             }}/>
 
             <CreateAccountButton title="Continue as a Guest" onPress={() => {
@@ -34,7 +34,7 @@ export default function LoginScreen({navigation}) {
                 navigation.navigate('Create user account')
             }} />
         </Wrapper>
-    );
+    )
 }
 
 const Wrapper = styled.View`
