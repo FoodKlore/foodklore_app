@@ -1,9 +1,11 @@
 import axios from 'axios'
 import { BACKEND_API } from '../../constants'
+import * as store from 'expo-secure-store'
 
 export const AUTH_IS_LOGGED_IN = 'AUTH_IS_LOGGED_IN'
 export const AUTH_FETCH = 'AUTH_FETCH'
 export const AUTH_ERROR = 'AUTH_ERROR'
+
 
 export const isLoggedIn = (total, shoppingcart_id) => dispatch => {
     dispatch({ type: AUTH_FETCH })
@@ -33,9 +35,9 @@ export const authenticate = (auth_entity) => async dispatch => {
         const { token } = await axios.post(`${BACKEND_API}/auth/login`, {
             auth_entity
         })
-        // TODO: Implemente secure store
-        // await SecureStore.setItemAsync('entity_token', token);
+        await store.setItemAsync('auth_token', token)
     } catch (error) {
+        // TODO: Implemente error handling notifying the user
         console.log(error)
         return false
     }
