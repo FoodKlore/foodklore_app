@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components/native'
 import { View, Text } from 'react-native'
-import { authenticate } from '../store/actions/auth'
+import { login } from '../../store/actions/auth'
 
 export default function LoginScreen({navigation}) {
     const [email, setEmail] = useState('')
@@ -20,9 +20,11 @@ export default function LoginScreen({navigation}) {
             }} secureTextEntry />
 
             <LoginButton title="Login" onPress={() => {
-                dispatch(authenticate({
-                    authenticable: email,
-                    password
+                dispatch(login({
+                    auth_entity: {
+                        authenticable: email,
+                        password
+                    }
                 }))
             }}/>
 

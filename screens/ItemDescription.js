@@ -2,81 +2,81 @@ import React, { useState, useReducer } from 'react'
 import styled from 'styled-components/native'
 import { Text } from 'react-native'
 import QuantityComponent from '../components/Quantity'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import { addToShoppingCart } from '../store/actions/shoppingCart'
 
 function reducer(state, action) {
-  switch (action.type) {
+    switch (action.type) {
     case 'increment':
-      return {
-        ...state,
-        quantity: state.quantity + 1
-      }
+        return {
+            ...state,
+            quantity: state.quantity + 1
+        }
     case 'decrement':
-      return {
-        ...state,
-        quantity: state.quantity - 1
-      }
+        return {
+            ...state,
+            quantity: state.quantity - 1
+        }
     case 'changeTotalPrice':
-      return {
-        ...state,
-        totalPrice: state.quantity * state.itemPrice
-      }
+        return {
+            ...state,
+            totalPrice: state.quantity * state.itemPrice
+        }
     default:
-      return state
-  }
+        return state
+    }
 }
 
 export default function ItemDescription({ route }) {
-  const { item } = route.params;
-  const initialState = {
-    quantity: 1,
-    totalPrice: item.total,
-    itemPrice: item.total
-  }
+    const { item } = route.params
+    const initialState = {
+        quantity: 1,
+        totalPrice: item.total,
+        itemPrice: item.total
+    }
 
-  const { current_shoppingcart_id } = useSelector(state => state.shoppingCart);
-  const [state, dispatch] = useReducer(reducer, initialState);
+    const { current_shoppingcart_id } = useSelector(state => state.shoppingCart)
+    const [state, dispatch] = useReducer(reducer, initialState)
 
-  const shoppingCartDispatch = useDispatch();
+    const shoppingCartDispatch = useDispatch()
 
-  return(
-    <Container>
-      <ItemHeader>
-        <ItemImage source={{
-          uri: item.img
-        }}/>
-        <Text style={{
-          marginTop: 20,
-          paddingLeft: 15,
-        }}>
-          { item.description }
-        </Text>
-      </ItemHeader>
-      <ItemBody>
-        <Text style={{
-          marginTop: 20,
-          paddingLeft: 15,
-        }}>
+    return(
+        <Container>
+            <ItemHeader>
+                <ItemImage source={{
+                    uri: item.img
+                }}/>
+                <Text style={{
+                    marginTop: 20,
+                    paddingLeft: 15,
+                }}>
+                    { item.description }
+                </Text>
+            </ItemHeader>
+            <ItemBody>
+                <Text style={{
+                    marginTop: 20,
+                    paddingLeft: 15,
+                }}>
           Ingredients
-        </Text>
-        {item.ingredients.map((ingredient, index) => <Text key={index} style={{
-          marginTop: 20,
-          paddingLeft: 15,
-        }}> {ingredient.name} </Text>)}
-      </ItemBody>
-      <ItemFooter>
-        <QuantityComponent quantity={state.quantity} dispatch={dispatch} />
-        <CartButtonText onPress={() => shoppingCartDispatch(addToShoppingCart(item, state.quantity, current_shoppingcart_id))}>
-          <Text style={{
-            color: "white"
-          }}>
+                </Text>
+                {item.ingredients.map((ingredient, index) => <Text key={index} style={{
+                    marginTop: 20,
+                    paddingLeft: 15,
+                }}> {ingredient.name} </Text>)}
+            </ItemBody>
+            <ItemFooter>
+                <QuantityComponent quantity={state.quantity} dispatch={dispatch} />
+                <CartButtonText onPress={() => shoppingCartDispatch(addToShoppingCart(item, state.quantity, current_shoppingcart_id))}>
+                    <Text style={{
+                        color: 'white'
+                    }}>
             Add to cart ${state.totalPrice.toFixed(2)}
-          </Text>
-        </CartButtonText>
-      </ItemFooter>
-    </Container>
-  );
+                    </Text>
+                </CartButtonText>
+            </ItemFooter>
+        </Container>
+    )
 }
 
 const CartButtonText = styled.TouchableHighlight`
@@ -94,7 +94,7 @@ const Container = styled.View`
   display: flex;
   flex: 1;
   justify-content: space-around;
-`;
+`
 
 const ItemHeader = styled.View`
   display: flex;

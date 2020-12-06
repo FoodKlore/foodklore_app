@@ -34,7 +34,8 @@ export const guest = (state = initialState, action) => {
         return {
             ...state,
             error: null,
-            isFetching: true
+            isFetching: true,
+            account_confirmed: false
         }
     }
     case GUEST_CONFIRMED_ACCOUNT_SUCCESS: {

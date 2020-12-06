@@ -43,7 +43,8 @@ export const user = (state = initialState, action) => {
         return {
             ...state,
             error: null,
-            isFetching: true
+            isFetching: true,
+            authenticated: false
         }
     }
     case USER_CONFIRMED_ACCOUNT_SUCCESS: {

@@ -4,30 +4,35 @@ import { Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { confirmGuestAccount } from '../store/actions/guest'
 import { confirmUserAccount } from '../store/actions/user'
-import { authenticate } from '../store/actions/auth'
 
 export default function ConfirmAccount({ navigation, route }) {
 
     const guest_account_confirmed = useSelector(state => state.guest.account_confirmed)
     const user_account_confirmed = useSelector(state => state.user.authenticated)
     const { entity, token } = route.params
+
     useEffect(() => {
         if (entity == 'guest') {
             console.log('Dispatching confirm guest account')
-            let resolved_confirmation = dispatch(confirmGuestAccount(token))
-
-            resolved_confirmation.then((data) => {
-                if (data) {
-                    console.log(data)
-                    dispatch(authenticate(data))
-                }
-            })
+            dispatch(confirmGuestAccount(token))
         } else if (entity == 'user') {
             dispatch(confirmUserAccount(token))
         } else {
             console.log('Entity not supported, bad request.')
         }
     }, [])
+
+    useEffect(() => {
+        if (user_account_confirmed) {
+            navigation.popToTop()
+        }
+    }, [user_account_confirmed])
+
+    useEffect(() => {
+        if (guest_account_confirmed) {
+            navigation.popToTop()
+        }
+    }, [guest_account_confirmed])
 
     const dispatch = useDispatch()
 

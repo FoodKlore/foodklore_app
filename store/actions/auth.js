@@ -2,43 +2,56 @@ import axios from 'axios'
 import { BACKEND_API } from '../../constants'
 import * as store from 'expo-secure-store'
 
-export const AUTH_IS_LOGGED_IN = 'AUTH_IS_LOGGED_IN'
+export const IT_IS_LOGGED_IN = 'IT_IS_LOGGED_IN'
 export const AUTH_FETCH = 'AUTH_FETCH'
 export const AUTH_ERROR = 'AUTH_ERROR'
+export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
 
-export const isLoggedIn = (total, shoppingcart_id) => dispatch => {
+export const isLoggedIn = () => async dispatch => {
     dispatch({ type: AUTH_FETCH })
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdXRoX2VudGl0eV9pZCI6NiwiZW50aXR5IjoiR3Vlc3QiLCJleHAiOjE1OTQ3NzAzNzF9.wrG07tC38_G2lc41Wh3H7CJyo3UFqJnOnVWDgAV0eys' // TODO: Get content from the local storage
-    axios.post(`${BACKEND_API}/auth/logged_in`, {
-        total,
-        shoppingcart_id
-    }, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).then(({ data }) => {
-        // TODO: Store payload in local Storage
-        dispatch({ type: AUTH_FETCH })
-        return true
-    }).catch(err => {
-        console.log(err)
-        dispatch({ type: AUTH_ERROR, payload: 'Account not authorized.' })
-        return false
-    })
+    try {
+        let token = await store.getItemAsync('auth_token')
+
+        axios.post(`${BACKEND_API}/auth/logged_in`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(({ data }) => {
+            // TODO: Store payload in local Storage
+            dispatch({ type: IT_IS_LOGGED_IN })
+            return true
+        }).catch(async err => {
+            console.log(err)
+            dispatch({ type: AUTH_ERROR, payload: 'Account not authorized.' })
+            await store.deleteItemAsync('auth_token')
+            return false
+        })
+
+    } catch (error) {
+        return dispatch({ type: AUTH_ERROR, payload: 'Not authenticated before'})
+    }
 }
 
-export const authenticate = (auth_entity) => async dispatch => {
+export const login = (auth_entity) => async dispatch => {
     dispatch({ type: AUTH_FETCH })
-
     try {
-        const { token } = await axios.post(`${BACKEND_API}/auth/login`, {
-            auth_entity
-        })
+        const { data: { token }} = await axios.post(`${BACKEND_API}/auth/login`, auth_entity)
         await store.setItemAsync('auth_token', token)
+        dispatch(isLoggedIn())
     } catch (error) {
         // TODO: Implemente error handling notifying the user
         console.log(error)
+        dispatch({ type: AUTH_ERROR })
         return false
+    }
+}
+
+export const logout = () => async dispatch => {
+    try {
+        await store.deleteItemAsync('auth_token')
+        dispatch({ type: AUTH_LOGOUT })
+    } catch (error) {
+
     }
 }

@@ -1,14 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 import * as React from 'react'
 import HomeScreen from '../screens/HomeScreen'
 import Orders from '../screens/Orders'
 import ShoppingCart from '../screens/ShoppingCart'
-import LoginScreen from '../screens/LoginScreen'
-import CreateGuest from '../screens/CreateGuest'
+import Account from '../screens/Account'
 
 const BottomTab = createBottomTabNavigator()
-const Drawer = createDrawerNavigator()
 const INITIAL_ROUTE_NAME = 'Restaurants'
 
 export default function BottomTabNavigator({ navigation, route }) {
@@ -46,7 +43,7 @@ export default function BottomTabNavigator({ navigation, route }) {
 
             <BottomTab.Screen
                 name="Account"
-                component={LoginScreen}
+                component={Account}
                 options={{
                     title: 'Account Access',
                     // tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
